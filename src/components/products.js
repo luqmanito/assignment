@@ -5,7 +5,7 @@ import Delete from "./delete";
 import moment from "moment";
 import styles from "../styles/products.module.css";
 
-function Products({ name, stock, sold, date, category,id }) {
+function Products({no, name, stock, sold, date, category,id }) {
   const router = useRouter();
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -24,7 +24,7 @@ const convertedDate = moment(date).utc().format('YYYY-MM-DD')
   return (
     <>
       <tr>
-        <th scope="row">1</th>
+        <th scope="row">{no}</th>
         <td className={`${styles["td-sub"]}`}>{name}</td>
         <td className={`${styles["td-sub"]}`}>{stock}</td>
         <td className={`${styles["td-sub"]}`} >{sold}</td>

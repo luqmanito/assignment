@@ -37,7 +37,7 @@ const Home = () => {
   };
   const sortByName = async () => {
     setTextDrop("Name");
-    Router.push(`/?sortName=ascending`)
+    Router.push(`/?sortName=ascending`);
     try {
       const body = {
         search: "",
@@ -51,7 +51,7 @@ const Home = () => {
   };
   const sortByNewest = async () => {
     setTextDrop("Newest");
-    Router.push(`/?sortProducts=newest`)
+    Router.push(`/?sortProducts=newest`);
     try {
       const body = {
         search: "",
@@ -65,7 +65,7 @@ const Home = () => {
   };
   const sortByOldest = async () => {
     setTextDrop("Oldest");
-    Router.push(`/?sortProducts=oldest`)
+    Router.push(`/?sortProducts=oldest`);
     try {
       const body = {
         search: "",
@@ -80,7 +80,7 @@ const Home = () => {
 
   const sortByMostPopular = async () => {
     setTextDrop("Most Popular");
-    Router.push(`/?sortProducts=popular`)
+    Router.push(`/?sortProducts=popular`);
     try {
       const body = {
         search: "",
@@ -95,7 +95,7 @@ const Home = () => {
 
   const sortByLessPopular = async () => {
     setTextDrop("Less Popular");
-    Router.push(`/?sortProducts=recent`)
+    Router.push(`/?sortProducts=recent`);
     try {
       const body = {
         search: "",
@@ -120,10 +120,10 @@ const Home = () => {
   useEffect(() => {
     getDataProducts();
     if (searchProduct !== "") {
-      Router.push(`/?search=${searchProduct}`)
+      Router.push(`/?search=${searchProduct}`);
     }
     if (searchProduct.length === 0) {
-      Router.push(`/`)
+      Router.push(`/`);
     }
   }, [searchProduct]);
 
@@ -181,9 +181,11 @@ const Home = () => {
                       return data;
                     }
                   })
-                  .map((data) => {
+                  .map((data, idx) => {
+                    console.log(dataProducts[0].length);
                     return (
                       <Products
+                        no={idx+1}
                         name={data.name}
                         stock={data.quantity}
                         sold={data.sold}
@@ -207,9 +209,11 @@ const Home = () => {
                       return data;
                     }
                   })
-                  .map((data) => {
+                  .map((data, idx) => {
+                    console.log(data);
                     return (
                       <Products
+                      no={idx+1}
                         name={data.name}
                         stock={data.quantity}
                         sold={data.sold}
