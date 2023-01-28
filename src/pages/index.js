@@ -116,7 +116,7 @@ const Home = () => {
   const pageData = Array.isArray(dataProducts)
     ? dataProducts.slice(page * pageSize - pageSize, page * pageSize)
     : [];
-  console.log(pageData);
+ 
   useEffect(() => {
     getDataProducts();
     if (searchProduct !== "") {
@@ -182,7 +182,7 @@ const Home = () => {
                     }
                   })
                   .map((data, idx) => {
-                    console.log(dataProducts[0].length);
+                   
                     return (
                       <Products
                         no={idx+1}
@@ -210,7 +210,7 @@ const Home = () => {
                     }
                   })
                   .map((data, idx) => {
-                    console.log(data);
+                  
                     return (
                       <Products
                       no={idx+1}
