@@ -6,7 +6,7 @@ import { debounce } from "@/helpers/debounce";
 import { getAllData } from "@/utils";
 import { Router } from "next/router";
 import React, { Fragment, useEffect, useState } from "react";
-import styles from "../styles/edit.module.css";
+import styles from "../styles/home.module.css";
 import { useRouter } from "next/router";
 
 const Home = () => {
