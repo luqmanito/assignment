@@ -156,8 +156,8 @@ const Home = () => {
           type="text"
         />
         <table className={`table table-hover ${styles["section"]}`}>
-          <thead>
-            <tr>
+          <thead className={`${styles["section-head"]}`}>
+            <tr className={`${styles["section-tr"]}`}>
               <th scope="col">No</th>
               <th scope="col">Nama Barang</th>
               <th scope="col">Stok</th>
