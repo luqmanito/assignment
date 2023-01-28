@@ -22,9 +22,16 @@
     padding-bottom: 30px;
     /* height: 35vh; */
   }
+  .p-trans{
+    text-align: center;
+    margin-top: 1rem;
+  }
   .p-text{
     text-align: left;
     padding-top: 1.5rem;
+  }
+  .inp{
+    text-align: center;
   }
   .modal-header,
   .modal-footer {
@@ -105,7 +112,16 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
-  
+  .norange{
+    display: none
+  }
+  .range{
+    background-color: #ffffff;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+  }
   .dropdown {
     display: inline-block;
     position: relative;
@@ -113,7 +129,22 @@
     /* margin-left: 44%;
     margin-top: -4%; */
   }
-  
+  .set{
+    border: none;
+    margin-top: 1rem;
+  }
+  .set:hover{
+    background-color: #4a5cb9;
+    color: #ffffff;
+  }
+  .cancel{
+    margin-left: 1rem;
+    border: none;
+  }
+  .cancel:hover{
+    background-color: #4a5cb9;
+    color: #ffffff;
+  }
   .dd-button {
     display: inline-block;
     border: 1px solid gray;

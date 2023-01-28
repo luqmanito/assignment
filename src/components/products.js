@@ -14,6 +14,10 @@ function Products({no, name, stock, sold, date, category,id }) {
 //     router.push(`/input-bank/${id}`);
 //   };
 const convertedDate = moment(date).utc().format('YYYY-MM-DD')
+
+const [year, month, day] = convertedDate.split('-');
+const dateResult = [day, month, year].join('-');
+
   const handleEdit = async () => {
     setOpenEdit(!openEdit);
   };
@@ -28,7 +32,7 @@ const convertedDate = moment(date).utc().format('YYYY-MM-DD')
         <td className={`${styles["td-sub"]}`}>{name}</td>
         <td className={`${styles["td-sub"]}`}>{stock}</td>
         <td className={`${styles["td-sub"]}`} >{sold}</td>
-        <td className={`${styles["td-sub"]}`}>{convertedDate}</td>
+        <td className={`${styles["td-sub"]}`}>{dateResult}</td>
         <td className={`${styles["td-sub"]}`}>{category}</td>
         <button onClick={handleEdit}>edit</button>
         <button onClick={handleDelete}>delete</button>

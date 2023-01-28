@@ -10,7 +10,7 @@ const Modal = (props) => {
   const [body, setBody] = useState({});
   const changeHandler = (e) =>
     setBody({ ...body, [e.target.name]: e.target.value });
-  console.log(body);
+  // console.log(body);
 
   const handleOk = async () => {
     try {

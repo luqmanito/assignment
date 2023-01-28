@@ -3,38 +3,67 @@ import Modal from "@/components/modal";
 import PageTitle from "@/components/page-title";
 import Products from "@/components/products";
 import { debounce } from "@/helpers/debounce";
-import { getAllData } from "@/utils";
+import { getAllData, getRangeData } from "@/utils";
 import { Router } from "next/router";
 import React, { Fragment, useEffect, useState } from "react";
 import styles from "../styles/edit.module.css";
 import { useRouter } from "next/router";
+import Filter from "@/components/filter";
 
 const Home = () => {
   const Router = useRouter();
-  const [isPwdShown, setIsPwdShown] = useState(false);
-  // const [body, setBody] = useState({});
   const [dataProducts, setDataProducts] = useState();
   const [searchProduct, setSearchProduct] = useState("");
   const [pageIndex, setPageIndex] = useState(1);
   const [textDrop, setTextDrop] = useState("Sort by :");
   const [openModal, setOpenModal] = useState(false);
-
+  const [openFilter, setOpenFilter] = useState(false);
+  const [date, setDate] = useState();
+  const [show, setShow] = useState(false);
+  const [body, setBody] = useState({});
   const handleAdd = async () => {
     setOpenModal(!openModal);
   };
 
-  const updateChange = (e) => setSearchProduct(e.target.value);
+  const handleFilter = async () => {
+    setShow(!show);
+  };
 
-  const [body, setBody] = useState({});
+  const changeDate = (e) => {
+    setDate(e.target.value);
+  };
+  const changeHandler = (e) => {
+    setBody({ ...body, [e.target.name]: e.target.value });
+  };
+  const updateChange = (e) => setSearchProduct(e.target.value);
+  
+  // console.log(body);
 
   const getDataProducts = async () => {
     try {
       const result = await getAllData(body);
+      console.log(body);
+      // console.log(result.data.data);
       setDataProducts(result.data.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getFilteredData = async () =>{
+    try {
+      const data = {
+        filter1: body.date1 ? body.date1 : "",
+        filter2: body.date2 ? body.date2 : "",
+      };
+      Router.push(`/?search=&sort=&datefrom=${data.filter1}&untildate=${data.filter2}`);
+      const result = await getAllData(data)
+      console.log(result.data.data)
+      setDataProducts(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const sortByName = async () => {
     setTextDrop("Name");
     Router.push(`/?sortName=ascending`);
@@ -116,7 +145,7 @@ const Home = () => {
   const pageData = Array.isArray(dataProducts)
     ? dataProducts.slice(page * pageSize - pageSize, page * pageSize)
     : [];
- 
+
   useEffect(() => {
     getDataProducts();
     if (searchProduct !== "") {
@@ -135,7 +164,7 @@ const Home = () => {
           <div className={` ${styles["dd-button"]}`}>{textDrop}</div>
           <input
             type="checkbox"
-            className={` ${styles["dd-input"]}`}
+            className={`${styles["dd-input"]}`}
             id="test"
           />
           <ul className={` ${styles["dd-menu"]}`}>
@@ -149,6 +178,43 @@ const Home = () => {
         <button className={`${styles["add"]}`} onClick={handleAdd}>
           Add Product
         </button>
+        <button className={`${styles["add"]}`} onClick={handleFilter}>
+          Filter Date :
+        </button>
+        <div className={show ? `${styles["range"]}` : `${styles["norange"]}`}>
+          <p className={styles["p-trans"]}>Transaction Date From:</p>
+          <input
+            onChange={(e) => {
+              changeHandler(e);
+              changeDate(e);
+            }}
+            className={` ${styles["inp"]}`}
+            type="date"
+            // value={convertedDate}
+            placeholder="Enter product Transaction date.."
+            name="date1"
+          />
+          <p className={styles["p-trans"]}>Until:</p>
+          <input
+            onChange={(e) => {
+              changeHandler(e);
+              changeDate(e);
+            }}
+            className={` ${styles["inp"]}`}
+            type="date"
+            // value={convertedDate}
+            placeholder="Enter product Transaction date.."
+            name="date2"
+          />
+          <div>
+            <button 
+            onClick={getFilteredData}
+            className={`${styles["set"]}`}>Set</button>
+            <button 
+            onClick={handleFilter}
+            className={`${styles["cancel"]}`}>Cancel</button>
+          </div>
+        </div>
         <input
           onChange={debounce(updateChange, 2000)}
           className={`${styles["search"]}`}
@@ -182,10 +248,9 @@ const Home = () => {
                     }
                   })
                   .map((data, idx) => {
-                   
                     return (
                       <Products
-                        no={idx+1}
+                        no={idx + 1}
                         name={data.name}
                         stock={data.quantity}
                         sold={data.sold}
@@ -210,10 +275,9 @@ const Home = () => {
                     }
                   })
                   .map((data, idx) => {
-                  
                     return (
                       <Products
-                      no={idx+1}
+                        no={idx + 1}
                         name={data.name}
                         stock={data.quantity}
                         sold={data.sold}
@@ -228,6 +292,7 @@ const Home = () => {
         </table>
       </main>
       <Modal open={openModal} setOpen={setOpenModal} title="New Product" />
+      <Filter open={openFilter} setOpen={setOpenFilter} title="New Product" />
     </>
   );
 };
